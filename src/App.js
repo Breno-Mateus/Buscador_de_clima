@@ -11,22 +11,18 @@ import api from "./services/api.js";
 
 import { useState } from "react";
 
-//45bd2b903056873584f731ddd7ef4da4 - api key
-
 function App() {
   
   const [cityName, setCityName] = useState('');
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(null);
 
-  const apiKey = "45bd2b903056873584f731ddd7ef4da4";
-
   const handleSearch = async () => {
     setError(null);
     setWeatherData(null);
 
     try {
-      const response = await api.get(`?q=${encodeURI(cityName)}&appid=${apiKey}&units=metric&lang=pt_br`);
+      const response = await api.get(`?q=${encodeURI(cityName)}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=pt_br`);
       setWeatherData(response.data);
     } catch (error) {
       setError('Cidade não encontrada.'); 
